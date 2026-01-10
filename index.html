@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Portfolio - Perpetual Molino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght:700;900&family=JetBrains+Mono:wght@400;600&family=Syne:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --maroon: #8B0000;
+            --gold: #FFD700;
+            --dark-maroon: #5A0000;
+            --light-gold: #FFED4E;
+            --cream: #FFF8DC;
+            --shadow: rgba(139, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(135deg, var(--dark-maroon) 0%, var(--maroon) 50%, #6B0000 100%);
+            color: var(--cream);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 20s infinite;
+        }
+
+        /* Floating code snippets */
+        .code-snippet {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            opacity: 0.15;
+            pointer-events: none;
+            animation: floatCode 25s infinite linear;
+        }
+
+        @keyframes floatCode {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            5% { opacity: 0.15; }
+            95% { opacity: 0.15; }
+            100% { transform: translateY(-100vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Profile Hero Section */
+        .profile-hero {
+            margin-bottom: 80px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 3px solid var(--gold);
+            border-radius: 40px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .profile-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 280px;
+            border: 4px solid transparent;
+            border-top-color: var(--gold);
+            border-right-color: var(--gold);
+            border-radius: 50%;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .profile-image {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid var(--gold);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5),
+                        inset 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, var(--maroon), var(--dark-maroon));
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-status {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--dark-maroon);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .profile-tagline {
+            font-size: 1.3rem;
+            color: var(--cream);
+            margin-bottom: 30px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+            color: var(--light-gold);
+            background: rgba(255, 215, 0, 0.1);
+            padding: 12px 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .detail-item:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--gold);
+            transform: translateX(10px);
+        }
+
+        .detail-icon {
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+                padding: 30px;
+                gap: 30px;
+            }
+
+            .profile-name {
+                font-size: 2rem;
+            }
+
+            .profile-tagline {
+                font-size: 1rem;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .profile-ring {
+                width: 240px;
+                height: 240px;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: slideDown 1s ease-out;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .university-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            color: var(--dark-maroon);
+            padding: 10px 28px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+            border: 2px solid var(--dark-maroon);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6); }
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--light-gold);
+            font-weight: 600;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        /* Info Cards */
+        .info-section {
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .info-section::before {
+            content: 'ABOUT';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--gold);
+            background: var(--dark-maroon);
+            padding: 8px 30px;
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            letter-spacing: 3px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease-out 0.3s both;
+            padding-top: 40px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            border-radius: 20px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover::after {
+            opacity: 0.3;
+            filter: blur(15px);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+
+        .card-corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold);
+        }
+
+        .card-corner.top-left {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .card-corner.bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--cream);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Skills section */
+        .skills-section {
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease-out 0.6s both;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+            z-index: -1;
+        }
+
+        .skills-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--dark-maroon), var(--maroon));
+            padding: 15px 40px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+
+        .skills-section h2::before,
+        .skills-section h2::after {
+            content: '◆';
+            position: absolute;
+            color: var(--gold);
+            font-size: 0.6em;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .skills-section h2::before {
+            left: 15px;
+        }
+
+        .skills-section h2::after {
+            right: 15px;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            border: 2px solid var(--gold);
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: skillFadeIn 0.5s ease-out both;
+        }
+
+        .skill-tag:nth-child(1) { animation-delay: 0.1s; }
+        .skill-tag:nth-child(2) { animation-delay: 0.15s; }
+        .skill-tag:nth-child(3) { animation-delay: 0.2s; }
+        .skill-tag:nth-child(4) { animation-delay: 0.25s; }
+        .skill-tag:nth-child(5) { animation-delay: 0.3s; }
+        .skill-tag:nth-child(6) { animation-delay: 0.35s; }
+        .skill-tag:nth-child(7) { animation-delay: 0.4s; }
+        .skill-tag:nth-child(8) { animation-delay: 0.45s; }
+        .skill-tag:nth-child(9) { animation-delay: 0.5s; }
+
+        @keyframes skillFadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.8); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .skill-tag:hover::before {
+            width: 200%;
+            height: 200%;
+        }
+
+        .skill-tag:hover {
+            background: var(--gold);
+            color: var(--dark-maroon);
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
+            border-color: var(--light-gold);
+        }
+
+        /* Mini Game */
+        .game-section {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 3px solid var(--gold);
+            border-radius: 30px;
+            padding: 50px 40px;
+            text-align: center;
+            animation: fadeIn 1s ease-out 0.9s both;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-section::before {
+            content: '🎮';
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            font-size: 150px;
+            opacity: 0.05;
+            transform: rotate(-15deg);
+        }
+
+        .game-section::after {
+            content: '🎮';
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            font-size: 150px;
+            opacity: 0.05;
+            transform: rotate(15deg);
+        }
+
+        .game-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            padding: 0 30px;
+        }
+
+        .game-section h2::before,
+        .game-section h2::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .game-section h2::before {
+            left: -60px;
+        }
+
+        .game-section h2::after {
+            right: -60px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+
+        .game-selector {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .game-btn {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            border: 2px solid var(--gold);
+            padding: 12px 30px;
+            border-radius: 25px;
+            color: var(--gold);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .game-btn:hover {
+            background: var(--gold);
+            color: var(--dark-maroon);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .game-btn.active {
+            background: var(--gold);
+            color: var(--dark-maroon);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .game-container {
+            max-width: 500px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .game-container.active {
+            display: block;
+        }
+
+        #gameCanvas, #arrowCanvas, #fnfCanvas {
+            background: linear-gradient(135deg, var(--dark-maroon), #3A0000);
+            border: 3px solid var(--gold);
+            border-radius: 15px;
+            cursor: crosshair;
+            display: block;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        #arrowCanvas, #fnfCanvas {
+            cursor: default;
+        }
+
+        .arrow-keys {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .arrow-key {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.1s ease;
+        }
+
+        .arrow-key.pressed {
+            background: var(--gold);
+            color: var(--dark-maroon);
+            transform: scale(0.9);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stat {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px 30px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            min-width: 120px;
+        }
+
+        .stat-label {
+            color: var(--gold);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--light-gold);
+        }
+
+        .game-instructions {
+            margin: 20px 0;
+            font-size: 0.95rem;
+            color: var(--light-gold);
+        }
+
+        .combo-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .accuracy-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin: 15px 0;
+            min-height: 40px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .accuracy-display.perfect {
+            color: #00ff00;
+            text-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+        }
+
+        .accuracy-display.good {
+            color: #FFD700;
+        }
+
+        .accuracy-display.miss {
+            color: #ff4444;
+            text-shadow: 0 0 15px rgba(255, 68, 68, 0.7);
+        }
+
+        .accuracy-display.bad {
+            color: #ff8800;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1rem; letter-spacing: 2px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .game-stats { flex-direction: column; gap: 15px; }
+            .game-section h2::before,
+            .game-section h2::after {
+                display: none;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 2px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: var(--cream);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .made-with {
+            margin-top: 25px;
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .made-with span {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Decorative Dividers */
+        .section-divider {
+            width: 100%;
+            height: 60px;
+            position: relative;
+            margin: 50px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .section-divider::after {
+            content: '◆';
+            background: var(--dark-maroon);
+            color: var(--gold);
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            z-index: 1;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            animation: rotateDiamond 10s linear infinite;
+        }
+
+        @keyframes rotateDiamond {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background particles -->
+    <div class="bg-particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Profile Hero Section -->
+        <section class="profile-hero">
+            <div class="profile-container">
+                <div class="profile-image-wrapper">
+                    <div class="profile-ring"></div>
+                    <div class="profile-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238B0000;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23FFD700;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='100' r='100' fill='url(%23grad)'/%3E%3Ctext x='100' y='120' font-family='Arial' font-size='80' fill='white' text-anchor='middle' font-weight='bold'%3E?%3C/text%3E%3C/svg%3E" alt="Profile Picture">
+                    </div>
+                    <div class="profile-status">
+                        <span class="status-dot"></span>
+                        <span>Available for Projects</span>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-name">JOHN DOE</h2>
+                    <p class="profile-tagline">"Strong always be strong"</p>
+                    <div class="profile-details">
+                        <div class="detail-item">
+                            <span class="detail-icon">🎓</span>
+                            <span>2nd Year IT Student</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">🏛️</span>
+                            <span>Perpetual Molino</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">📍</span>
+                            <span>Molino, Cavite</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <header>
+            <div class="university-badge">🎓 University of Perpetual Help System DALTA - Molino Campus</div>
+            <h1>IT PORTFOLIO</h1>
+            <p class="subtitle">2nd Year • IT Student</p>
+        </header>
+
+        <div class="info-section">
+            <div class="info-grid">
+            <div class="card">
+                <div class="card-corner top-left"></div>
+                <div class="card-corner bottom-right"></div>
+                <div class="card-icon">💻</div>
+                <h3>Information Technology</h3>
+                <p>Pursuing a Bachelor's degree in Information Technology, specializing in software development, system analysis, and emerging technologies.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-corner top-left"></div>
+                <div class="card-corner bottom-right"></div>
+                <div class="card-icon">🚀</div>
+                <h3>Academic Journey</h3>
+                <p>Currently in my second year, building a strong foundation in programming, database management, networking, and web development.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-corner top-left"></div>
+                <div class="card-corner bottom-right"></div>
+                <div class="card-icon">🎯</div>
+                <h3>Future Goals</h3>
+                <p>Aspiring to become a full-stack developer and contribute to innovative tech solutions that make a positive impact on society.</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="skills-section">
+            <div class="section-header">
+                <h2>TECHNICAL SKILLS</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-tag">HTML & CSS</div>
+                <div class="skill-tag">JavaScript</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">Java</div>
+                <div class="skill-tag">SQL</div>
+                <div class="skill-tag">Git & GitHub</div>
+                <div class="skill-tag">Web Development</div>
+                <div class="skill-tag">Problem Solving</div>
+                <div class="skill-tag">Data Structures</div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="game-section">
+            <h2>🎮 ARCADE ZONE</h2>
+            
+            <div class="game-selector">
+                <button class="game-btn active" onclick="switchGame('coins')">💰 Coin Catcher</button>
+                <button class="game-btn" onclick="switchGame('arrows')">⬆️ Arrow Rush</button>
+            </div>
+
+            <!-- Coin Catcher Game -->
+            <div class="game-container active" id="coinGame">
+                <p class="game-instructions">Click the falling gold coins before they disappear!</p>
+                <canvas id="gameCanvas" width="400" height="500"></canvas>
+                <div class="game-stats">
+                    <div class="stat">
+                        <span class="stat-label">SCORE</span>
+                        <span class="stat-value" id="score">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">HIGH SCORE</span>
+                        <span class="stat-value" id="highScore">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endless Arrow Game -->
+            <div class="game-container" id="arrowGame">
+                <p class="game-instructions">Press START to begin! Hit arrows in the target zone!</p>
+                <button class="game-btn" id="arrowStartBtn" onclick="startArrowGame()">START GAME</button>
+                <canvas id="arrowCanvas" width="400" height="500" style="display:none;"></canvas>
+                <div class="arrow-keys" style="display:none;">
+                    <div class="arrow-key" id="leftKey">←</div>
+                    <div class="arrow-key" id="downKey">↓</div>
+                    <div class="arrow-key" id="upKey">↑</div>
+                    <div class="arrow-key" id="rightKey">→</div>
+                </div>
+                <div class="accuracy-display" id="accuracyDisplay" style="display:none;"></div>
+                <div class="game-stats" style="display:none;">
+                    <div class="stat">
+                        <span class="stat-label">SCORE</span>
+                        <span class="stat-value" id="arrowScore">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">COMBO</span>
+                        <span class="stat-value" id="combo">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">ACCURACY</span>
+                        <span class="stat-value" id="arrowAccuracy">100%</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">HEALTH</span>
+                        <span class="stat-value" id="arrowHealth">100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <p class="footer-text">© 2026 John Doe | IT Student Portfolio</p>
+                <p class="footer-text">University of Perpetual Help System DALTA - Molino Campus</p>
+                <p class="made-with">Made with <span>❤</span> and dedication to technology</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Create background particles and code snippets
+        const particlesContainer = document.getElementById('particles');
+        const codeSnippets = [
+            'const init = () => {...}',
+            'while(true) { learn(); }',
+            'function solve() { }',
+            'if (dream) { achieve(); }',
+            'let success = true;',
+            'class Developer { }',
+            'import { skills } from "IT";',
+            'console.log("Hello World");',
+            'async function build() { }',
+            'return innovation;'
+        ];
+
+        // Particles
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Code snippets
+        for (let i = 0; i < 8; i++) {
+            const snippet = document.createElement('div');
+            snippet.className = 'code-snippet';
+            snippet.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+            snippet.style.left = Math.random() * 100 + '%';
+            snippet.style.animationDelay = Math.random() * 25 + 's';
+            snippet.style.animationDuration = (20 + Math.random() * 15) + 's';
+            particlesContainer.appendChild(snippet);
+        }
+
+        // Game Switcher
+        function switchGame(game) {
+            // Hide all games
+            document.querySelectorAll('.game-container').forEach(g => g.classList.remove('active'));
+            
+            // Remove active from main game selector buttons only
+            const mainBtns = document.querySelectorAll('.game-section > .game-selector .game-btn');
+            mainBtns.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected game
+            if (game === 'coins') {
+                document.getElementById('coinGame').classList.add('active');
+                mainBtns[0].classList.add('active');
+            } else if (game === 'arrows') {
+                document.getElementById('arrowGame').classList.add('active');
+                mainBtns[1].classList.add('active');
+            }
+        }
+
+        // ===== ENDLESS ARROW RUSH GAME =====
+        let arrowGameStarted = false;
+        let arrowGameRunning = false;
+        const arrowCanvas = document.getElementById('arrowCanvas');
+        const arrowCtx = arrowCanvas.getContext('2d');
+        const arrowScoreEl = document.getElementById('arrowScore');
+        const comboEl = document.getElementById('combo');
+        const arrowAccuracyEl = document.getElementById('arrowAccuracy');
+        const arrowHealthEl = document.getElementById('arrowHealth');
+        const accuracyDisplayEl = document.getElementById('accuracyDisplay');
+        const arrowStartBtn = document.getElementById('arrowStartBtn');
+
+        let arrowScore = 0;
+        let combo = 0;
+        let arrowHealth = 100;
+        let totalArrowHits = 0;
+        let totalArrowNotes = 0;
+        let currentSpeed = 2.5;
+        let spawnInterval = 1200;
+        let difficultyLevel = 1;
+
+        const arrows = [];
+        const arrowTypes = ['left', 'down', 'up', 'right'];
+        const targetY = 50;
+        let arrowSpawnTimer = null;
+
+        class Arrow {
+            constructor(type) {
+                this.type = type;
+                this.x = this.getX();
+                this.y = arrowCanvas.height;
+                this.size = 40;
+                this.hit = false;
+                this.speed = currentSpeed;
+            }
+
+            getX() {
+                const positions = { left: 70, down: 150, up: 230, right: 310 };
+                return positions[this.type];
+            }
+
+            getSymbol() {
+                const symbols = { left: '←', down: '↓', up: '↑', right: '→' };
+                return symbols[this.type];
+            }
+
+            draw() {
+                if (this.hit) return;
+                
+                arrowCtx.save();
+                arrowCtx.font = 'bold 40px Arial';
+                arrowCtx.textAlign = 'center';
+                arrowCtx.textBaseline = 'middle';
+                
+                arrowCtx.shadowColor = '#FFD700';
+                arrowCtx.shadowBlur = 15;
+                arrowCtx.fillStyle = '#FFD700';
+                arrowCtx.fillText(this.getSymbol(), this.x, this.y);
+                arrowCtx.restore();
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.draw();
+            }
+
+            getAccuracy() {
+                const distance = Math.abs(this.y - targetY);
+                if (distance < 10) return 'perfect';
+                if (distance < 25) return 'good';
+                if (distance < 40) return 'bad';
+                return 'miss';
+            }
+
+            isInTargetZone() {
+                return Math.abs(this.y - targetY) < 40;
+            }
+        }
+
+        function startArrowGame() {
+            if (arrowGameRunning) {
+                // Reset game
+                resetArrowGame();
+            }
+            
+            arrowGameStarted = true;
+            arrowGameRunning = true;
+            arrowStartBtn.textContent = 'RESTART';
+            
+            // Show game elements
+            arrowCanvas.style.display = 'block';
+            document.querySelector('#arrowGame .arrow-keys').style.display = 'flex';
+            document.querySelector('#arrowGame .game-stats').style.display = 'flex';
+            accuracyDisplayEl.style.display = 'block';
+            
+            // Reset stats
+            arrowScore = 0;
+            combo = 0;
+            arrowHealth = 100;
+            totalArrowHits = 0;
+            totalArrowNotes = 0;
+            currentSpeed = 2.5;
+            spawnInterval = 1200;
+            difficultyLevel = 1;
+            updateArrowStats();
+            
+            // Start spawning arrows
+            arrowSpawnTimer = setInterval(() => {
+                if (arrowGameRunning && arrowHealth > 0) {
+                    const randomType = arrowTypes[Math.floor(Math.random() * arrowTypes.length)];
+                    arrows.push(new Arrow(randomType));
+                    
+                    // Progressive difficulty every 10 points
+                    if (arrowScore > 0 && arrowScore % 100 === 0 && difficultyLevel < 10) {
+                        difficultyLevel++;
+                        currentSpeed += 0.3;
+                        spawnInterval = Math.max(600, spawnInterval - 80);
+                        clearInterval(arrowSpawnTimer);
+                        arrowSpawnTimer = setInterval(() => {
+                            if (arrowGameRunning && arrowHealth > 0) {
+                                const randomType = arrowTypes[Math.floor(Math.random() * arrowTypes.length)];
+                                arrows.push(new Arrow(randomType));
+                            }
+                        }, spawnInterval);
+                    }
+                }
+            }, spawnInterval);
+            
+            arrowGameLoop();
+        }
+
+        function resetArrowGame() {
+            arrowGameRunning = false;
+            arrows.length = 0;
+            if (arrowSpawnTimer) {
+                clearInterval(arrowSpawnTimer);
+                arrowSpawnTimer = null;
+            }
+        }
+
+        function drawArrowTargets() {
+            // Draw target zone
+            arrowCtx.fillStyle = 'rgba(255, 215, 0, 0.1)';
+            arrowCtx.fillRect(0, targetY - 25, arrowCanvas.width, 50);
+            
+            arrowCtx.strokeStyle = '#FFD700';
+            arrowCtx.lineWidth = 3;
+            arrowCtx.strokeRect(0, targetY - 25, arrowCanvas.width, 50);
+            
+            // Draw target arrows
+            arrowCtx.font = 'bold 40px Arial';
+            arrowCtx.fillStyle = 'rgba(255, 215, 0, 0.3)';
+            arrowCtx.textAlign = 'center';
+            arrowCtx.textBaseline = 'middle';
+            arrowCtx.fillText('←', 70, targetY);
+            arrowCtx.fillText('↓', 150, targetY);
+            arrowCtx.fillText('↑', 230, targetY);
+            arrowCtx.fillText('→', 310, targetY);
+            
+            // Health bar
+            arrowCtx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+            arrowCtx.fillRect(10, 460, 380, 30);
+            
+            const healthColor = arrowHealth > 50 ? '#00ff00' : arrowHealth > 25 ? '#ffff00' : '#ff0000';
+            arrowCtx.fillStyle = healthColor;
+            arrowCtx.fillRect(10, 460, (380 * arrowHealth) / 100, 30);
+            
+            arrowCtx.strokeStyle = '#FFD700';
+            arrowCtx.lineWidth = 2;
+            arrowCtx.strokeRect(10, 460, 380, 30);
+            
+            // Difficulty level
+            arrowCtx.fillStyle = '#FFD700';
+            arrowCtx.font = 'bold 14px JetBrains Mono';
+            arrowCtx.textAlign = 'left';
+            arrowCtx.fillText(`LEVEL ${difficultyLevel}`, 15, 455);
+        }
+
+        function arrowGameLoop() {
+            if (!arrowGameRunning) return;
+            
+            arrowCtx.clearRect(0, 0, arrowCanvas.width, arrowCanvas.height);
+            drawArrowTargets();
+
+            for (let i = arrows.length - 1; i >= 0; i--) {
+                arrows[i].update();
+                if (arrows[i].y < -50 && !arrows[i].hit) {
+                    arrows.splice(i, 1);
+                    arrowHealth -= 10;
+                    combo = 0;
+                    totalArrowNotes++;
+                    showAccuracy('miss');
+                    updateArrowStats();
+                    
+                    if (arrowHealth <= 0) {
+                        arrowHealth = 0;
+                        gameOver();
+                    }
+                }
+            }
+
+            requestAnimationFrame(arrowGameLoop);
+        }
+
+        function showAccuracy(type) {
+            accuracyDisplayEl.className = 'accuracy-display ' + type;
+            const messages = {
+                perfect: '✨ PERFECT! ✨',
+                good: '✓ GOOD!',
+                bad: '~ BAD',
+                miss: '✗ MISS'
+            };
+            accuracyDisplayEl.textContent = messages[type];
+            
+            setTimeout(() => {
+                accuracyDisplayEl.textContent = '';
+                accuracyDisplayEl.className = 'accuracy-display';
+            }, 800);
+        }
+
+        function updateArrowStats() {
+            arrowScoreEl.textContent = arrowScore;
+            comboEl.textContent = combo;
+            arrowHealthEl.textContent = Math.max(0, arrowHealth) + '%';
+            const accuracy = totalArrowNotes > 0 ? Math.round((totalArrowHits / totalArrowNotes) * 100) : 100;
+            arrowAccuracyEl.textContent = accuracy + '%';
+        }
+
+        function gameOver() {
+            arrowGameRunning = false;
+            if (arrowSpawnTimer) {
+                clearInterval(arrowSpawnTimer);
+            }
+            accuracyDisplayEl.className = 'accuracy-display miss';
+            accuracyDisplayEl.textContent = '💀 GAME OVER - Press RESTART';
+        }
+
+        // Arrow key detection
+        const keyMap = { 
+            'ArrowLeft': 'left', 
+            'ArrowDown': 'down', 
+            'ArrowUp': 'up', 
+            'ArrowRight': 'right' 
+        };
+
+        document.addEventListener('keydown', (e) => {
+            const arrowType = keyMap[e.key];
+            if (!arrowType) return;
+            
+            // Prevent arrow keys from scrolling the page
+            if (e.key.startsWith('Arrow')) {
+                e.preventDefault();
+            }
+            
+            // Check if arrow game is active and running
+            const arrowGameActive = document.getElementById('arrowGame').classList.contains('active');
+            if (arrowGameActive && arrowGameRunning && arrowHealth > 0) {
+                // Visual feedback
+                const keyEl = document.getElementById(arrowType + 'Key');
+                if (keyEl) {
+                    keyEl.classList.add('pressed');
+                    setTimeout(() => keyEl.classList.remove('pressed'), 100);
+                }
+
+                // Check for hit
+                for (let i = 0; i < arrows.length; i++) {
+                    if (arrows[i].type === arrowType && arrows[i].isInTargetZone() && !arrows[i].hit) {
+                        const accuracy = arrows[i].getAccuracy();
+                        arrows[i].hit = true;
+                        arrows.splice(i, 1);
+                        totalArrowNotes++;
+                        
+                        if (accuracy === 'perfect') {
+                            arrowScore += 50;
+                            combo++;
+                            totalArrowHits++;
+                            if (arrowHealth < 100) arrowHealth = Math.min(100, arrowHealth + 3);
+                        } else if (accuracy === 'good') {
+                            arrowScore += 25;
+                            combo++;
+                            totalArrowHits++;
+                            if (arrowHealth < 100) arrowHealth = Math.min(100, arrowHealth + 2);
+                        } else if (accuracy === 'bad') {
+                            arrowScore += 10;
+                            combo = 0;
+                            totalArrowHits++;
+                            arrowHealth -= 3;
+                        }
+                        
+                        showAccuracy(accuracy);
+                        updateArrowStats();
+                        
+                        if (arrowHealth <= 0) {
+                            arrowHealth = 0;
+                            gameOver();
+                        }
+                        break;
+                    }
+                }
+            }
+        });
+
+
+        // Mini Game: Catch the Coins
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('score');
+        const highScoreEl = document.getElementById('highScore');
+
+        let score = 0;
+        let highScore = localStorage.getItem('coinGameHighScore') || 0;
+        highScoreEl.textContent = highScore;
+
+        const coins = [];
+        const coinRadius = 20;
+        let coinBaseSpeed = 2;
+        let coinSpawnRate = 1000;
+        let coinDifficultyLevel = 1;
+
+        class Coin {
+            constructor() {
+                this.x = Math.random() * (canvas.width - coinRadius * 2) + coinRadius;
+                this.y = -coinRadius;
+                this.speed = coinBaseSpeed + Math.random() * 2;
+                this.clicked = false;
+            }
+
+            draw() {
+                // Draw gold coin
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, coinRadius, 0, Math.PI * 2);
+                const gradient = ctx.createRadialGradient(this.x - 5, this.y - 5, 0, this.x, this.y, coinRadius);
+                gradient.addColorStop(0, '#FFED4E');
+                gradient.addColorStop(0.5, '#FFD700');
+                gradient.addColorStop(1, '#DAA520');
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                // Coin detail
+                ctx.strokeStyle = '#B8860B';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Star in center
+                ctx.fillStyle = '#8B0000';
+                ctx.font = 'bold 20px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('★', this.x, this.y);
+                
+                ctx.restore();
+            }
+
+            update() {
+                this.y += this.speed;
+                this.draw();
+            }
+
+            isClicked(mouseX, mouseY) {
+                const distance = Math.sqrt((mouseX - this.x) ** 2 + (mouseY - this.y) ** 2);
+                return distance < coinRadius;
+            }
+        }
+
+        function spawnCoin() {
+            coins.push(new Coin());
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw coins
+            for (let i = coins.length - 1; i >= 0; i--) {
+                coins[i].update();
+
+                // Remove coins that fall off screen
+                if (coins[i].y > canvas.height + coinRadius) {
+                    coins.splice(i, 1);
+                }
+            }
+
+            // Update and draw click particles
+            updateParticles();
+
+            // Progressive difficulty every 50 points
+            if (score > 0 && score % 50 === 0 && score > (coinDifficultyLevel - 1) * 50) {
+                if (coinDifficultyLevel < 10) {
+                    coinDifficultyLevel++;
+                    coinBaseSpeed += 0.4;
+                    coinSpawnRate = Math.max(400, coinSpawnRate - 100);
+                    clearInterval(coinSpawner);
+                    coinSpawner = setInterval(spawnCoin, coinSpawnRate);
+                }
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Spawn coins with progressive difficulty
+        let coinSpawner = setInterval(spawnCoin, coinSpawnRate);
+
+        // Click detection - using mousedown for instant response
+        canvas.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            for (let i = coins.length - 1; i >= 0; i--) {
+                if (coins[i].isClicked(mouseX, mouseY) && !coins[i].clicked) {
+                    coins[i].clicked = true;
+                    
+                    // Immediate visual feedback with particle effect
+                    createClickEffect(coins[i].x, coins[i].y);
+                    
+                    coins.splice(i, 1);
+                    score++;
+                    scoreEl.textContent = score;
+
+                    // Update high score
+                    if (score > highScore) {
+                        highScore = score;
+                        highScoreEl.textContent = highScore;
+                        localStorage.setItem('coinGameHighScore', highScore);
+                    }
+                    break;
+                }
+            }
+        });
+
+        // Touch support for mobile
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const mouseX = touch.clientX - rect.left;
+            const mouseY = touch.clientY - rect.top;
+
+            for (let i = coins.length - 1; i >= 0; i--) {
+                if (coins[i].isClicked(mouseX, mouseY) && !coins[i].clicked) {
+                    coins[i].clicked = true;
+                    createClickEffect(coins[i].x, coins[i].y);
+                    coins.splice(i, 1);
+                    score++;
+                    scoreEl.textContent = score;
+
+                    if (score > highScore) {
+                        highScore = score;
+                        highScoreEl.textContent = highScore;
+                        localStorage.setItem('coinGameHighScore', highScore);
+                    }
+                    break;
+                }
+            }
+        });
+
+        // Click effect particles
+        const particles = [];
+        
+        function createClickEffect(x, y) {
+            for (let i = 0; i < 8; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 8,
+                    vy: (Math.random() - 0.5) * 8,
+                    life: 1,
+                    size: Math.random() * 4 + 2
+                });
+            }
+        }
+
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.02;
+                
+                if (p.life > 0) {
+                    ctx.save();
+                    ctx.globalAlpha = p.life;
+                    ctx.fillStyle = '#FFD700';
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                } else {
+                    particles.splice(i, 1);
+                }
+            }
+        }
+
+        // Start the game
+        gameLoop();
+    </script>
+</body>
+</html>
