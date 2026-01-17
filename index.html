@@ -582,237 +582,285 @@
             border-color: var(--light-gold);
         }
 
-        /* Mini Game */
-        .game-section {
+        /* Dual Games Section - New Section for Snake and Fireworks */
+        .dual-game-section {
+            margin-bottom: 70px;
+            animation: fadeIn 1s ease-out 0.9s both;
+            position: relative;
+        }
+
+        .dual-game-section::before {
+            content: '🎮 GAMES';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--gold);
+            background: var(--dark-maroon);
+            padding: 8px 30px;
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            letter-spacing: 3px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .dual-games-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            padding-top: 40px;
+        }
+
+        .game-panel {
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             border: 3px solid var(--gold);
-            border-radius: 30px;
-            padding: 50px 40px;
+            border-radius: 20px;
+            padding: 25px;
+            flex: 1;
+            min-width: 450px;
+            max-width: 500px;
             text-align: center;
-            animation: fadeIn 1s ease-out 0.9s both;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             position: relative;
-            overflow: hidden;
         }
 
-        .game-section::before {
-            content: '🎮';
-            position: absolute;
-            top: -30px;
-            left: -30px;
-            font-size: 150px;
-            opacity: 0.05;
-            transform: rotate(-15deg);
-        }
-
-        .game-section::after {
-            content: '🎮';
-            position: absolute;
-            bottom: -30px;
-            right: -30px;
-            font-size: 150px;
-            opacity: 0.05;
-            transform: rotate(15deg);
-        }
-
-        .game-section h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 30px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            letter-spacing: 3px;
-            position: relative;
-            display: inline-block;
-            padding: 0 30px;
-        }
-
-        .game-section h2::before,
-        .game-section h2::after {
+        .game-panel::before {
             content: '';
             position: absolute;
-            top: 50%;
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--gold), transparent);
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
         }
 
-        .game-section h2::before {
-            left: -60px;
+        .game-panel:hover::before {
+            left: 100%;
         }
 
-        .game-section h2::after {
-            right: -60px;
-            background: linear-gradient(90deg, transparent, var(--gold));
-        }
-
-        .game-selector {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .game-btn {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
-            border: 2px solid var(--gold);
-            padding: 12px 30px;
-            border-radius: 25px;
+        .game-panel h3 {
+            font-family: 'Orbitron', sans-serif;
             color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        /* Snake Game Styling (Adapted to your theme) */
+        .snake-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        #snakeCanvas {
+            background: linear-gradient(135deg, var(--dark-maroon), #3A0000);
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .snake-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #snakeStartBtn {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+            color: var(--dark-maroon);
+            border: 3px solid var(--gold);
+            padding: 12px 35px;
+            border-radius: 25px;
             font-family: 'JetBrains Mono', monospace;
             font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.95rem;
+            margin-bottom: 10px;
         }
 
-        .game-btn:hover {
-            background: var(--gold);
-            color: var(--dark-maroon);
+        #snakeStartBtn:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
         }
 
-        .game-btn.active {
-            background: var(--gold);
-            color: var(--dark-maroon);
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+        /* FIXED: Mobile Controls - Removed active state effects */
+        .mobile-controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            max-width: 240px;
+            margin: 15px auto;
         }
 
-        .game-container {
-            max-width: 500px;
-            margin: 0 auto;
-            display: none;
-        }
-
-        .game-container.active {
-            display: block;
-        }
-
-        #gameCanvas, #arrowCanvas, #fnfCanvas {
-            background: linear-gradient(135deg, var(--dark-maroon), #3A0000);
-            border: 3px solid var(--gold);
-            border-radius: 15px;
-            cursor: crosshair;
-            display: block;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        #arrowCanvas, #fnfCanvas {
-            cursor: default;
-        }
-
-        .arrow-keys {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .arrow-key {
-            width: 60px;
-            height: 60px;
+        .mobile-controls .control-btn {
             background: rgba(255, 215, 0, 0.1);
-            border: 3px solid var(--gold);
-            border-radius: 10px;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-size: 1.2rem;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            user-select: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.1s ease;
+            -webkit-tap-highlight-color: transparent;
+            /* REMOVED all active/hover states */
         }
 
-        .arrow-key.pressed {
+        /* REMOVED the :active state completely */
+        /* .mobile-controls .control-btn:active {
             background: var(--gold);
             color: var(--dark-maroon);
-            transform: scale(0.9);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            transform: scale(0.95);
+        } */
+
+        .mobile-controls .control-btn.center {
+            background: rgba(255, 215, 0, 0.2);
+            cursor: default;
         }
 
-        .game-stats {
+        .snake-stats {
             display: flex;
             justify-content: space-around;
-            margin-top: 20px;
-            font-size: 1.2rem;
-            flex-wrap: wrap;
-            gap: 10px;
+            margin-top: 15px;
+            gap: 15px;
         }
 
-        .stat {
+        .snake-stat {
             background: rgba(255, 215, 0, 0.1);
-            padding: 15px 30px;
+            padding: 10px 20px;
             border-radius: 15px;
             border: 2px solid var(--gold);
             min-width: 120px;
         }
 
-        .stat-label {
+        .snake-stat-label {
             color: var(--gold);
-            font-weight: 600;
-            display: block;
+            font-size: 0.85rem;
             margin-bottom: 5px;
+            font-weight: 600;
         }
 
-        .stat-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: var(--light-gold);
-        }
-
-        .game-instructions {
-            margin: 20px 0;
-            font-size: 0.95rem;
-            color: var(--light-gold);
-        }
-
-        .combo-display {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            color: var(--gold);
-            margin: 10px 0;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .accuracy-display {
+        .snake-stat-value {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
+            color: var(--light-gold);
+        }
+
+        #snakeGameOverScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(139, 0, 0, 0.85);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+        #snakeGameOverScreen.show {
+            display: flex;
+        }
+
+        #snakeGameOverScreen h2 {
             color: var(--gold);
-            margin: 15px 0;
-            min-height: 40px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
         }
 
-        .accuracy-display.perfect {
-            color: #00ff00;
-            text-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+        #snakeGameOverScreen p {
+            color: var(--cream);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
 
-        .accuracy-display.good {
-            color: #FFD700;
+        .snake-restart-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+            color: var(--dark-maroon);
+            border: 2px solid var(--gold);
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
         }
 
-        .accuracy-display.miss {
-            color: #ff4444;
-            text-shadow: 0 0 15px rgba(255, 68, 68, 0.7);
+        .snake-restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
         }
 
-        .accuracy-display.bad {
-            color: #ff8800;
+        /* Fireworks Styling (Adapted to your theme) */
+        .fireworks-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        #fireworksCanvas {
+            background: #000;
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .fireworks-info {
+            margin-top: 15px;
+            color: var(--cream);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .keyboard-controls {
+            margin-top: 15px;
+            color: var(--light-gold);
+            font-size: 0.85rem;
         }
 
         /* Responsive */
+        @media (max-width: 1100px) {
+            .dual-games-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-panel {
+                min-width: 100%;
+                max-width: 600px;
+            }
+        }
+
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             .subtitle { font-size: 1rem; letter-spacing: 2px; }
             .info-grid { grid-template-columns: 1fr; }
-            .game-stats { flex-direction: column; gap: 15px; }
-            .game-section h2::before,
-            .game-section h2::after {
-                display: none;
-            }
+            .game-panel { padding: 20px; }
+            .game-panel h3 { font-size: 1.5rem; }
+            #snakeCanvas, #fireworksCanvas { width: 100%; height: auto; }
+            .mobile-controls { max-width: 200px; }
         }
 
         /* Footer */
@@ -998,58 +1046,62 @@
 
         <div class="section-divider"></div>
 
-        <div class="game-section">
-            <h2>🎮 ARCADE ZONE</h2>
-            
-            <div class="game-selector">
-                <button class="game-btn active" onclick="switchGame('coins')">💰 Coin Catcher</button>
-                <button class="game-btn" onclick="switchGame('arrows')">⬆️ Arrow Rush</button>
-            </div>
-
-            <!-- Coin Catcher Game -->
-            <div class="game-container active" id="coinGame">
-                <p class="game-instructions">Click the falling gold coins before they disappear!</p>
-                <canvas id="gameCanvas" width="400" height="500"></canvas>
-                <div class="game-stats">
-                    <div class="stat">
-                        <span class="stat-label">SCORE</span>
-                        <span class="stat-value" id="score">0</span>
+        <!-- NEW: Dual Games Section with Snake and Fireworks -->
+        <div class="dual-game-section">
+            <div class="dual-games-container">
+                <!-- Snake Game Panel -->
+                <div class="game-panel">
+                    <h3>🐍 SNAKE GAME</h3>
+                    <div class="snake-container">
+                        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+                        <div id="snakeGameOverScreen">
+                            <h2>GAME OVER!</h2>
+                            <p>Final Score: <span id="snakeFinalScore">0</span></p>
+                            <button class="snake-restart-btn" id="snakeGameOverRestart">PLAY AGAIN</button>
+                        </div>
                     </div>
-                    <div class="stat">
-                        <span class="stat-label">HIGH SCORE</span>
-                        <span class="stat-value" id="highScore">0</span>
+                    
+                    <div class="snake-controls">
+                        <button id="snakeStartBtn">START GAME</button>
+                        
+                        <!-- Mobile Controls - Changed to WASD layout -->
+                        <div class="mobile-controls">
+                            <button class="control-btn" id="btnW">W</button>
+                            <div class="control-btn center">🐍</div>
+                            <div class="control-btn"></div>
+                            <button class="control-btn" id="btnA">A</button>
+                            <button class="control-btn" id="btnS">S</button>
+                            <button class="control-btn" id="btnD">D</button>
+                        </div>
+                        
+                        <!-- Game Stats -->
+                        <div class="snake-stats">
+                            <div class="snake-stat">
+                                <div class="snake-stat-label">SCORE</div>
+                                <div class="snake-stat-value" id="snakeScore">0</div>
+                            </div>
+                            <div class="snake-stat">
+                                <div class="snake-stat-label">HIGH SCORE</div>
+                                <div class="snake-stat-value" id="snakeHighScore">0</div>
+                            </div>
+                        </div>
+                        
+                        <div class="keyboard-controls">
+                            <p><strong>Controls:</strong> WASD Keys</p>
+                            <p><strong>Mobile:</strong> Use buttons above</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Endless Arrow Game -->
-            <div class="game-container" id="arrowGame">
-                <p class="game-instructions">Press START to begin! Hit arrows in the target zone!</p>
-                <button class="game-btn" id="arrowStartBtn" onclick="startArrowGame()">START GAME</button>
-                <canvas id="arrowCanvas" width="400" height="500" style="display:none;"></canvas>
-                <div class="arrow-keys" style="display:none;">
-                    <div class="arrow-key" id="leftKey">←</div>
-                    <div class="arrow-key" id="downKey">↓</div>
-                    <div class="arrow-key" id="upKey">↑</div>
-                    <div class="arrow-key" id="rightKey">→</div>
-                </div>
-                <div class="accuracy-display" id="accuracyDisplay" style="display:none;"></div>
-                <div class="game-stats" style="display:none;">
-                    <div class="stat">
-                        <span class="stat-label">SCORE</span>
-                        <span class="stat-value" id="arrowScore">0</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">COMBO</span>
-                        <span class="stat-value" id="combo">0</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">ACCURACY</span>
-                        <span class="stat-value" id="arrowAccuracy">100%</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">HEALTH</span>
-                        <span class="stat-value" id="arrowHealth">100%</span>
+                
+                <!-- Fireworks Panel -->
+                <div class="game-panel">
+                    <h3>🎆 FIREWORKS DISPLAY</h3>
+                    <div class="fireworks-container">
+                        <canvas id="fireworksCanvas" width="400" height="400"></canvas>
+                        <div class="fireworks-info">
+                            <p>Automatic fireworks display</p>
+                            <p>Sit back and enjoy the show!</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1101,521 +1153,432 @@
             particlesContainer.appendChild(snippet);
         }
 
-        // Game Switcher
-        function switchGame(game) {
-            // Hide all games
-            document.querySelectorAll('.game-container').forEach(g => g.classList.remove('active'));
-            
-            // Remove active from main game selector buttons only
-            const mainBtns = document.querySelectorAll('.game-section > .game-selector .game-btn');
-            mainBtns.forEach(btn => btn.classList.remove('active'));
-            
-            // Show selected game
-            if (game === 'coins') {
-                document.getElementById('coinGame').classList.add('active');
-                mainBtns[0].classList.add('active');
-            } else if (game === 'arrows') {
-                document.getElementById('arrowGame').classList.add('active');
-                mainBtns[1].classList.add('active');
-            }
+        // ===== SNAKE GAME =====
+        const snakeCanvas = document.getElementById('snakeCanvas');
+        const snakeCtx = snakeCanvas.getContext('2d');
+        const snakeScoreElement = document.getElementById('snakeScore');
+        const snakeFinalScoreElement = document.getElementById('snakeFinalScore');
+        const snakeHighScoreElement = document.getElementById('snakeHighScore');
+        const snakeGameOverScreen = document.getElementById('snakeGameOverScreen');
+        const snakeStartBtn = document.getElementById('snakeStartBtn');
+        const snakeGameOverRestartBtn = document.getElementById('snakeGameOverRestart');
+
+        const TILE_SIZE = 20;
+        const GRID_WIDTH = 20;
+        const GRID_HEIGHT = 20;
+        const GAME_SPEED = 120;
+
+        let snake = [];
+        let food = {};
+        let snakeDirection = 'right';
+        let snakeNextDirection = 'right';
+        let snakeRunning = false;
+        let snakeGameOver = false;
+        let snakeScore = 0;
+        let snakeHighScore = localStorage.getItem('snakeHighScore') || 0;
+        let snakeGameLoop = null;
+
+        snakeHighScoreElement.textContent = snakeHighScore;
+
+        function snakeInit() {
+            snakeCanvas.width = GRID_WIDTH * TILE_SIZE;
+            snakeCanvas.height = GRID_HEIGHT * TILE_SIZE;
+            snakeSetupControls();
         }
 
-        // ===== ENDLESS ARROW RUSH GAME =====
-        let arrowGameStarted = false;
-        let arrowGameRunning = false;
-        const arrowCanvas = document.getElementById('arrowCanvas');
-        const arrowCtx = arrowCanvas.getContext('2d');
-        const arrowScoreEl = document.getElementById('arrowScore');
-        const comboEl = document.getElementById('combo');
-        const arrowAccuracyEl = document.getElementById('arrowAccuracy');
-        const arrowHealthEl = document.getElementById('arrowHealth');
-        const accuracyDisplayEl = document.getElementById('accuracyDisplay');
-        const arrowStartBtn = document.getElementById('arrowStartBtn');
-
-        let arrowScore = 0;
-        let combo = 0;
-        let arrowHealth = 100;
-        let totalArrowHits = 0;
-        let totalArrowNotes = 0;
-        let currentSpeed = 2.5;
-        let spawnInterval = 1200;
-        let difficultyLevel = 1;
-
-        const arrows = [];
-        const arrowTypes = ['left', 'down', 'up', 'right'];
-        const targetY = 50;
-        let arrowSpawnTimer = null;
-
-        class Arrow {
-            constructor(type) {
-                this.type = type;
-                this.x = this.getX();
-                this.y = arrowCanvas.height;
-                this.size = 40;
-                this.hit = false;
-                this.speed = currentSpeed;
-            }
-
-            getX() {
-                const positions = { left: 70, down: 150, up: 230, right: 310 };
-                return positions[this.type];
-            }
-
-            getSymbol() {
-                const symbols = { left: '←', down: '↓', up: '↑', right: '→' };
-                return symbols[this.type];
-            }
-
-            draw() {
-                if (this.hit) return;
-                
-                arrowCtx.save();
-                arrowCtx.font = 'bold 40px Arial';
-                arrowCtx.textAlign = 'center';
-                arrowCtx.textBaseline = 'middle';
-                
-                arrowCtx.shadowColor = '#FFD700';
-                arrowCtx.shadowBlur = 15;
-                arrowCtx.fillStyle = '#FFD700';
-                arrowCtx.fillText(this.getSymbol(), this.x, this.y);
-                arrowCtx.restore();
-            }
-
-            update() {
-                this.y -= this.speed;
-                this.draw();
-            }
-
-            getAccuracy() {
-                const distance = Math.abs(this.y - targetY);
-                if (distance < 10) return 'perfect';
-                if (distance < 25) return 'good';
-                if (distance < 40) return 'bad';
-                return 'miss';
-            }
-
-            isInTargetZone() {
-                return Math.abs(this.y - targetY) < 40;
-            }
-        }
-
-        function startArrowGame() {
-            if (arrowGameRunning) {
-                // Reset game
-                resetArrowGame();
-            }
+        function snakeSetupControls() {
+            // Button event listeners
+            snakeStartBtn.addEventListener('click', snakeStartGame);
+            snakeGameOverRestartBtn.addEventListener('click', snakeStartGame);
             
-            arrowGameStarted = true;
-            arrowGameRunning = true;
-            arrowStartBtn.textContent = 'RESTART';
-            
-            // Show game elements
-            arrowCanvas.style.display = 'block';
-            document.querySelector('#arrowGame .arrow-keys').style.display = 'flex';
-            document.querySelector('#arrowGame .game-stats').style.display = 'flex';
-            accuracyDisplayEl.style.display = 'block';
-            
-            // Reset stats
-            arrowScore = 0;
-            combo = 0;
-            arrowHealth = 100;
-            totalArrowHits = 0;
-            totalArrowNotes = 0;
-            currentSpeed = 2.5;
-            spawnInterval = 1200;
-            difficultyLevel = 1;
-            updateArrowStats();
-            
-            // Start spawning arrows
-            arrowSpawnTimer = setInterval(() => {
-                if (arrowGameRunning && arrowHealth > 0) {
-                    const randomType = arrowTypes[Math.floor(Math.random() * arrowTypes.length)];
-                    arrows.push(new Arrow(randomType));
-                    
-                    // Progressive difficulty every 10 points
-                    if (arrowScore > 0 && arrowScore % 100 === 0 && difficultyLevel < 10) {
-                        difficultyLevel++;
-                        currentSpeed += 0.3;
-                        spawnInterval = Math.max(600, spawnInterval - 80);
-                        clearInterval(arrowSpawnTimer);
-                        arrowSpawnTimer = setInterval(() => {
-                            if (arrowGameRunning && arrowHealth > 0) {
-                                const randomType = arrowTypes[Math.floor(Math.random() * arrowTypes.length)];
-                                arrows.push(new Arrow(randomType));
-                            }
-                        }, spawnInterval);
-                    }
+            // Mobile control buttons
+            const btnW = document.getElementById('btnW');
+            const btnA = document.getElementById('btnA');
+            const btnS = document.getElementById('btnS');
+            const btnD = document.getElementById('btnD');
+
+            // Mobile button controls
+            const mobileControl = (direction) => {
+                if (!snakeRunning) return;
+                switch(direction) {
+                    case 'up': if (snakeDirection !== 'down') snakeNextDirection = 'up'; break;
+                    case 'left': if (snakeDirection !== 'right') snakeNextDirection = 'left'; break;
+                    case 'down': if (snakeDirection !== 'up') snakeNextDirection = 'down'; break;
+                    case 'right': if (snakeDirection !== 'left') snakeNextDirection = 'right'; break;
                 }
-            }, spawnInterval);
-            
-            arrowGameLoop();
-        }
-
-        function resetArrowGame() {
-            arrowGameRunning = false;
-            arrows.length = 0;
-            if (arrowSpawnTimer) {
-                clearInterval(arrowSpawnTimer);
-                arrowSpawnTimer = null;
-            }
-        }
-
-        function drawArrowTargets() {
-            // Draw target zone
-            arrowCtx.fillStyle = 'rgba(255, 215, 0, 0.1)';
-            arrowCtx.fillRect(0, targetY - 25, arrowCanvas.width, 50);
-            
-            arrowCtx.strokeStyle = '#FFD700';
-            arrowCtx.lineWidth = 3;
-            arrowCtx.strokeRect(0, targetY - 25, arrowCanvas.width, 50);
-            
-            // Draw target arrows
-            arrowCtx.font = 'bold 40px Arial';
-            arrowCtx.fillStyle = 'rgba(255, 215, 0, 0.3)';
-            arrowCtx.textAlign = 'center';
-            arrowCtx.textBaseline = 'middle';
-            arrowCtx.fillText('←', 70, targetY);
-            arrowCtx.fillText('↓', 150, targetY);
-            arrowCtx.fillText('↑', 230, targetY);
-            arrowCtx.fillText('→', 310, targetY);
-            
-            // Health bar
-            arrowCtx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-            arrowCtx.fillRect(10, 460, 380, 30);
-            
-            const healthColor = arrowHealth > 50 ? '#00ff00' : arrowHealth > 25 ? '#ffff00' : '#ff0000';
-            arrowCtx.fillStyle = healthColor;
-            arrowCtx.fillRect(10, 460, (380 * arrowHealth) / 100, 30);
-            
-            arrowCtx.strokeStyle = '#FFD700';
-            arrowCtx.lineWidth = 2;
-            arrowCtx.strokeRect(10, 460, 380, 30);
-            
-            // Difficulty level
-            arrowCtx.fillStyle = '#FFD700';
-            arrowCtx.font = 'bold 14px JetBrains Mono';
-            arrowCtx.textAlign = 'left';
-            arrowCtx.fillText(`LEVEL ${difficultyLevel}`, 15, 455);
-        }
-
-        function arrowGameLoop() {
-            if (!arrowGameRunning) return;
-            
-            arrowCtx.clearRect(0, 0, arrowCanvas.width, arrowCanvas.height);
-            drawArrowTargets();
-
-            for (let i = arrows.length - 1; i >= 0; i--) {
-                arrows[i].update();
-                if (arrows[i].y < -50 && !arrows[i].hit) {
-                    arrows.splice(i, 1);
-                    arrowHealth -= 10;
-                    combo = 0;
-                    totalArrowNotes++;
-                    showAccuracy('miss');
-                    updateArrowStats();
-                    
-                    if (arrowHealth <= 0) {
-                        arrowHealth = 0;
-                        gameOver();
-                    }
-                }
-            }
-
-            requestAnimationFrame(arrowGameLoop);
-        }
-
-        function showAccuracy(type) {
-            accuracyDisplayEl.className = 'accuracy-display ' + type;
-            const messages = {
-                perfect: '✨ PERFECT! ✨',
-                good: '✓ GOOD!',
-                bad: '~ BAD',
-                miss: '✗ MISS'
             };
-            accuracyDisplayEl.textContent = messages[type];
-            
-            setTimeout(() => {
-                accuracyDisplayEl.textContent = '';
-                accuracyDisplayEl.className = 'accuracy-display';
-            }, 800);
-        }
 
-        function updateArrowStats() {
-            arrowScoreEl.textContent = arrowScore;
-            comboEl.textContent = combo;
-            arrowHealthEl.textContent = Math.max(0, arrowHealth) + '%';
-            const accuracy = totalArrowNotes > 0 ? Math.round((totalArrowHits / totalArrowNotes) * 100) : 100;
-            arrowAccuracyEl.textContent = accuracy + '%';
-        }
-
-        function gameOver() {
-            arrowGameRunning = false;
-            if (arrowSpawnTimer) {
-                clearInterval(arrowSpawnTimer);
-            }
-            accuracyDisplayEl.className = 'accuracy-display miss';
-            accuracyDisplayEl.textContent = '💀 GAME OVER - Press RESTART';
-        }
-
-        // Arrow key detection
-        const keyMap = { 
-            'ArrowLeft': 'left', 
-            'ArrowDown': 'down', 
-            'ArrowUp': 'up', 
-            'ArrowRight': 'right' 
-        };
-
-        document.addEventListener('keydown', (e) => {
-            const arrowType = keyMap[e.key];
-            if (!arrowType) return;
-            
-            // Prevent arrow keys from scrolling the page
-            if (e.key.startsWith('Arrow')) {
+            // Simple event listeners without visual feedback
+            btnW.addEventListener('mousedown', () => mobileControl('up'));
+            btnW.addEventListener('touchstart', (e) => {
                 e.preventDefault();
+                mobileControl('up');
+            });
+
+            btnA.addEventListener('mousedown', () => mobileControl('left'));
+            btnA.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                mobileControl('left');
+            });
+
+            btnS.addEventListener('mousedown', () => mobileControl('down'));
+            btnS.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                mobileControl('down');
+            });
+
+            btnD.addEventListener('mousedown', () => mobileControl('right'));
+            btnD.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                mobileControl('right');
+            });
+
+            // REMOVED all visual feedback event listeners
+        }
+
+        function snakeStartGame() {
+            snakeStartBtn.textContent = 'RESTART';
+            snake = [
+                { x: 5, y: 5 },
+                { x: 4, y: 5 },
+                { x: 3, y: 5 }
+            ];
+            
+            snakeDirection = 'right';
+            snakeNextDirection = 'right';
+            snakeScore = 0;
+            snakeGameOver = false;
+            snakeRunning = true;
+            
+            snakeUpdateScore();
+            snakeGameOverScreen.classList.remove('show');
+            snakeSpawnFood();
+            
+            if (snakeGameLoop) clearInterval(snakeGameLoop);
+            snakeGameLoop = setInterval(snakeUpdate, GAME_SPEED);
+        }
+
+        function snakeSpawnFood() {
+            let validPosition = false;
+            while (!validPosition) {
+                food = {
+                    x: Math.floor(Math.random() * GRID_WIDTH),
+                    y: Math.floor(Math.random() * GRID_HEIGHT)
+                };
+                validPosition = !snake.some(segment => 
+                    segment.x === food.x && segment.y === food.y
+                );
+            }
+        }
+
+        function snakeUpdate() {
+            if (!snakeRunning) return;
+
+            snakeDirection = snakeNextDirection;
+            const head = { ...snake[0] };
+
+            switch (snakeDirection) {
+                case 'up': head.y--; break;
+                case 'down': head.y++; break;
+                case 'left': head.x--; break;
+                case 'right': head.x++; break;
+            }
+
+            // Check wall collision
+            if (head.x < 0 || head.x >= GRID_WIDTH || 
+                head.y < 0 || head.y >= GRID_HEIGHT) {
+                snakeEndGame();
+                return;
+            }
+
+            // Check self collision
+            if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                snakeEndGame();
+                return;
+            }
+
+            snake.unshift(head);
+
+            // Check if food is eaten
+            if (head.x === food.x && head.y === food.y) {
+                snakeScore += 10;
+                snakeUpdateScore();
+                snakeSpawnFood();
+            } else {
+                snake.pop();
+            }
+
+            snakeDraw();
+        }
+
+        function snakeDraw() {
+            // Clear canvas with theme color
+            snakeCtx.fillStyle = '#5A0000';
+            snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+            
+            // Draw grid
+            snakeCtx.strokeStyle = 'rgba(255, 215, 0, 0.1)';
+            snakeCtx.lineWidth = 1;
+            for (let x = 0; x <= GRID_WIDTH; x++) {
+                snakeCtx.beginPath();
+                snakeCtx.moveTo(x * TILE_SIZE, 0);
+                snakeCtx.lineTo(x * TILE_SIZE, snakeCanvas.height);
+                snakeCtx.stroke();
+            }
+            for (let y = 0; y <= GRID_HEIGHT; y++) {
+                snakeCtx.beginPath();
+                snakeCtx.moveTo(0, y * TILE_SIZE);
+                snakeCtx.lineTo(snakeCanvas.width, y * TILE_SIZE);
+                snakeCtx.stroke();
+            }
+
+            // Draw food (gold coin style)
+            snakeCtx.save();
+            snakeCtx.shadowColor = '#FFD700';
+            snakeCtx.shadowBlur = 15;
+            snakeCtx.fillStyle = '#FFD700';
+            snakeCtx.beginPath();
+            snakeCtx.arc(
+                food.x * TILE_SIZE + TILE_SIZE/2,
+                food.y * TILE_SIZE + TILE_SIZE/2,
+                TILE_SIZE/2,
+                0,
+                Math.PI * 2
+            );
+            snakeCtx.fill();
+            snakeCtx.restore();
+
+            // Draw snake
+            snake.forEach((segment, index) => {
+                if (index === 0) {
+                    // Head (darker gold)
+                    snakeCtx.fillStyle = '#FFED4E';
+                } else {
+                    // Body (gold)
+                    snakeCtx.fillStyle = '#FFD700';
+                }
+                
+                snakeCtx.fillRect(
+                    segment.x * TILE_SIZE + 1,
+                    segment.y * TILE_SIZE + 1,
+                    TILE_SIZE - 2,
+                    TILE_SIZE - 2
+                );
+                
+                // Add inner highlight
+                snakeCtx.fillStyle = index === 0 ? '#FFF8DC' : '#FFED4E';
+                snakeCtx.fillRect(
+                    segment.x * TILE_SIZE + 3,
+                    segment.y * TILE_SIZE + 3,
+                    TILE_SIZE - 6,
+                    TILE_SIZE - 6
+                );
+            });
+        }
+
+        function snakeEndGame() {
+            snakeRunning = false;
+            snakeGameOver = true;
+            clearInterval(snakeGameLoop);
+            snakeFinalScoreElement.textContent = snakeScore;
+            snakeGameOverScreen.classList.add('show');
+            
+            // Update high score
+            if (snakeScore > snakeHighScore) {
+                snakeHighScore = snakeScore;
+                snakeHighScoreElement.textContent = snakeHighScore;
+                localStorage.setItem('snakeHighScore', snakeHighScore);
+            }
+        }
+
+        function snakeUpdateScore() {
+            snakeScoreElement.textContent = snakeScore;
+        }
+
+        // Keyboard controls for snake - WASD
+        document.addEventListener('keydown', (e) => {
+            if (snakeGameOver && e.code === 'Space') {
+                snakeStartGame();
+                return;
+            }
+
+            if (!snakeRunning) return;
+
+            switch (e.key.toLowerCase()) {
+                case 'w':
+                    if (snakeDirection !== 'down') snakeNextDirection = 'up';
+                    e.preventDefault();
+                    break;
+                case 's':
+                    if (snakeDirection !== 'up') snakeNextDirection = 'down';
+                    e.preventDefault();
+                    break;
+                case 'a':
+                    if (snakeDirection !== 'right') snakeNextDirection = 'left';
+                    e.preventDefault();
+                    break;
+                case 'd':
+                    if (snakeDirection !== 'left') snakeNextDirection = 'right';
+                    e.preventDefault();
+                    break;
+            }
+        });
+
+        // Initialize snake game
+        snakeInit();
+
+        // ===== FIREWORKS DISPLAY =====
+        const fireworksCanvas = document.getElementById('fireworksCanvas');
+        const fireworksCtx = fireworksCanvas.getContext('2d');
+        
+        fireworksCanvas.width = 400;
+        fireworksCanvas.height = 400;
+        
+        class FireworkParticle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8,
+                    y: (Math.random() - 0.5) * 8
+                };
+                this.alpha = 1;
+                this.decay = Math.random() * 0.015 + 0.01;
+                this.gravity = 0.05;
+                this.size = Math.random() * 3 + 1;
             }
             
-            // Check if arrow game is active and running
-            const arrowGameActive = document.getElementById('arrowGame').classList.contains('active');
-            if (arrowGameActive && arrowGameRunning && arrowHealth > 0) {
-                // Visual feedback
-                const keyEl = document.getElementById(arrowType + 'Key');
-                if (keyEl) {
-                    keyEl.classList.add('pressed');
-                    setTimeout(() => keyEl.classList.remove('pressed'), 100);
-                }
-
-                // Check for hit
-                for (let i = 0; i < arrows.length; i++) {
-                    if (arrows[i].type === arrowType && arrows[i].isInTargetZone() && !arrows[i].hit) {
-                        const accuracy = arrows[i].getAccuracy();
-                        arrows[i].hit = true;
-                        arrows.splice(i, 1);
-                        totalArrowNotes++;
-                        
-                        if (accuracy === 'perfect') {
-                            arrowScore += 50;
-                            combo++;
-                            totalArrowHits++;
-                            if (arrowHealth < 100) arrowHealth = Math.min(100, arrowHealth + 3);
-                        } else if (accuracy === 'good') {
-                            arrowScore += 25;
-                            combo++;
-                            totalArrowHits++;
-                            if (arrowHealth < 100) arrowHealth = Math.min(100, arrowHealth + 2);
-                        } else if (accuracy === 'bad') {
-                            arrowScore += 10;
-                            combo = 0;
-                            totalArrowHits++;
-                            arrowHealth -= 3;
-                        }
-                        
-                        showAccuracy(accuracy);
-                        updateArrowStats();
-                        
-                        if (arrowHealth <= 0) {
-                            arrowHealth = 0;
-                            gameOver();
-                        }
-                        break;
-                    }
-                }
-            }
-        });
-
-
-        // Mini Game: Catch the Coins
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const scoreEl = document.getElementById('score');
-        const highScoreEl = document.getElementById('highScore');
-
-        let score = 0;
-        let highScore = localStorage.getItem('coinGameHighScore') || 0;
-        highScoreEl.textContent = highScore;
-
-        const coins = [];
-        const coinRadius = 20;
-        let coinBaseSpeed = 2;
-        let coinSpawnRate = 1000;
-        let coinDifficultyLevel = 1;
-
-        class Coin {
-            constructor() {
-                this.x = Math.random() * (canvas.width - coinRadius * 2) + coinRadius;
-                this.y = -coinRadius;
-                this.speed = coinBaseSpeed + Math.random() * 2;
-                this.clicked = false;
-            }
-
-            draw() {
-                // Draw gold coin
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, coinRadius, 0, Math.PI * 2);
-                const gradient = ctx.createRadialGradient(this.x - 5, this.y - 5, 0, this.x, this.y, coinRadius);
-                gradient.addColorStop(0, '#FFED4E');
-                gradient.addColorStop(0.5, '#FFD700');
-                gradient.addColorStop(1, '#DAA520');
-                ctx.fillStyle = gradient;
-                ctx.fill();
-                
-                // Coin detail
-                ctx.strokeStyle = '#B8860B';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-                
-                // Star in center
-                ctx.fillStyle = '#8B0000';
-                ctx.font = 'bold 20px Arial';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText('★', this.x, this.y);
-                
-                ctx.restore();
-            }
-
             update() {
-                this.y += this.speed;
-                this.draw();
+                this.velocity.y += this.gravity;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= this.decay;
             }
-
-            isClicked(mouseX, mouseY) {
-                const distance = Math.sqrt((mouseX - this.x) ** 2 + (mouseY - this.y) ** 2);
-                return distance < coinRadius;
+            
+            draw() {
+                fireworksCtx.save();
+                fireworksCtx.globalAlpha = this.alpha;
+                fireworksCtx.fillStyle = this.color;
+                fireworksCtx.beginPath();
+                fireworksCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                fireworksCtx.fill();
+                fireworksCtx.restore();
             }
         }
-
-        function spawnCoin() {
-            coins.push(new Coin());
-        }
-
-        function gameLoop() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Update and draw coins
-            for (let i = coins.length - 1; i >= 0; i--) {
-                coins[i].update();
-
-                // Remove coins that fall off screen
-                if (coins[i].y > canvas.height + coinRadius) {
-                    coins.splice(i, 1);
-                }
-            }
-
-            // Update and draw click particles
-            updateParticles();
-
-            // Progressive difficulty every 50 points
-            if (score > 0 && score % 50 === 0 && score > (coinDifficultyLevel - 1) * 50) {
-                if (coinDifficultyLevel < 10) {
-                    coinDifficultyLevel++;
-                    coinBaseSpeed += 0.4;
-                    coinSpawnRate = Math.max(400, coinSpawnRate - 100);
-                    clearInterval(coinSpawner);
-                    coinSpawner = setInterval(spawnCoin, coinSpawnRate);
-                }
-            }
-
-            requestAnimationFrame(gameLoop);
-        }
-
-        // Spawn coins with progressive difficulty
-        let coinSpawner = setInterval(spawnCoin, coinSpawnRate);
-
-        // Click detection - using mousedown for instant response
-        canvas.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
-
-            for (let i = coins.length - 1; i >= 0; i--) {
-                if (coins[i].isClicked(mouseX, mouseY) && !coins[i].clicked) {
-                    coins[i].clicked = true;
-                    
-                    // Immediate visual feedback with particle effect
-                    createClickEffect(coins[i].x, coins[i].y);
-                    
-                    coins.splice(i, 1);
-                    score++;
-                    scoreEl.textContent = score;
-
-                    // Update high score
-                    if (score > highScore) {
-                        highScore = score;
-                        highScoreEl.textContent = highScore;
-                        localStorage.setItem('coinGameHighScore', highScore);
-                    }
-                    break;
-                }
-            }
-        });
-
-        // Touch support for mobile
-        canvas.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const touch = e.touches[0];
-            const mouseX = touch.clientX - rect.left;
-            const mouseY = touch.clientY - rect.top;
-
-            for (let i = coins.length - 1; i >= 0; i--) {
-                if (coins[i].isClicked(mouseX, mouseY) && !coins[i].clicked) {
-                    coins[i].clicked = true;
-                    createClickEffect(coins[i].x, coins[i].y);
-                    coins.splice(i, 1);
-                    score++;
-                    scoreEl.textContent = score;
-
-                    if (score > highScore) {
-                        highScore = score;
-                        highScoreEl.textContent = highScore;
-                        localStorage.setItem('coinGameHighScore', highScore);
-                    }
-                    break;
-                }
-            }
-        });
-
-        // Click effect particles
-        const particles = [];
         
-        function createClickEffect(x, y) {
-            for (let i = 0; i < 8; i++) {
-                particles.push({
-                    x: x,
-                    y: y,
-                    vx: (Math.random() - 0.5) * 8,
-                    vy: (Math.random() - 0.5) * 8,
-                    life: 1,
-                    size: Math.random() * 4 + 2
+        class Firework {
+            constructor() {
+                this.x = Math.random() * fireworksCanvas.width;
+                this.y = fireworksCanvas.height;
+                this.targetY = Math.random() * fireworksCanvas.height * 0.5 + 50;
+                this.velocity = (this.y - this.targetY) / 60;
+                this.particles = [];
+                this.exploded = false;
+                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                this.trailParticles = [];
+            }
+            
+            update() {
+                if (!this.exploded) {
+                    this.y -= this.velocity;
+                    
+                    // Add trail
+                    if (Math.random() < 0.3) {
+                        this.trailParticles.push({
+                            x: this.x,
+                            y: this.y,
+                            alpha: 0.5,
+                            size: 2
+                        });
+                    }
+                    
+                    if (this.y <= this.targetY) {
+                        this.explode();
+                    }
+                } else {
+                    this.particles.forEach((p, i) => {
+                        p.update();
+                        if (p.alpha <= 0) {
+                            this.particles.splice(i, 1);
+                        }
+                    });
+                }
+                
+                // Update trail
+                this.trailParticles.forEach((t, i) => {
+                    t.alpha -= 0.02;
+                    if (t.alpha <= 0) {
+                        this.trailParticles.splice(i, 1);
+                    }
                 });
             }
-        }
-
-        function updateParticles() {
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.life -= 0.02;
+            
+            explode() {
+                this.exploded = true;
+                const particleCount = Math.random() * 50 + 100;
                 
-                if (p.life > 0) {
-                    ctx.save();
-                    ctx.globalAlpha = p.life;
-                    ctx.fillStyle = '#FFD700';
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
-                } else {
-                    particles.splice(i, 1);
+                for (let i = 0; i < particleCount; i++) {
+                    this.particles.push(new FireworkParticle(this.x, this.y, this.color));
                 }
             }
+            
+            draw() {
+                if (!this.exploded) {
+                    // Draw trail
+                    this.trailParticles.forEach(t => {
+                        fireworksCtx.save();
+                        fireworksCtx.globalAlpha = t.alpha;
+                        fireworksCtx.fillStyle = this.color;
+                        fireworksCtx.beginPath();
+                        fireworksCtx.arc(t.x, t.y, t.size, 0, Math.PI * 2);
+                        fireworksCtx.fill();
+                        fireworksCtx.restore();
+                    });
+                    
+                    // Draw rocket
+                    fireworksCtx.fillStyle = this.color;
+                    fireworksCtx.beginPath();
+                    fireworksCtx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    fireworksCtx.fill();
+                } else {
+                    this.particles.forEach(p => p.draw());
+                }
+            }
+            
+            isDone() {
+                return this.exploded && this.particles.length === 0;
+            }
         }
-
-        // Start the game
-        gameLoop();
+        
+        const fireworks = [];
+        let lastFireworkTime = 0;
+        
+        function fireworksAnimate(currentTime) {
+            fireworksCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            fireworksCtx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+            
+            // Launch new fireworks
+            if (currentTime - lastFireworkTime > Math.random() * 500 + 500) {
+                fireworks.push(new Firework());
+                lastFireworkTime = currentTime;
+            }
+            
+            // Update and draw fireworks
+            fireworks.forEach((fw, i) => {
+                fw.update();
+                fw.draw();
+                
+                if (fw.isDone()) {
+                    fireworks.splice(i, 1);
+                }
+            });
+            
+            requestAnimationFrame(fireworksAnimate);
+        }
+        
+        // Start fireworks automatically
+        fireworksAnimate(0);
     </script>
 </body>
 </html>
