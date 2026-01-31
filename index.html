@@ -1,0 +1,1589 @@
+<!--Broooooo pls work -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Portfolio - Perpetual Molino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght:700;900&family=JetBrains+Mono:wght@400;600&family=Syne:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --maroon: #8B0000;
+            --gold: #FFD700;
+            --dark-maroon: #5A0000;
+            --light-gold: #FFED4E;
+            --cream: #FFF8DC;
+            --shadow: rgba(139, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(135deg, var(--dark-maroon) 0%, var(--maroon) 50%, #6B0000 100%);
+            color: var(--cream);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 20s infinite;
+        }
+
+        /* Floating code snippets */
+        .code-snippet {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            opacity: 0.15;
+            pointer-events: none;
+            animation: floatCode 25s infinite linear;
+        }
+
+        @keyframes floatCode {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            5% { opacity: 0.15; }
+            95% { opacity: 0.15; }
+            100% { transform: translateY(-100vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Profile Hero Section */
+        .profile-hero {
+            margin-bottom: 80px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 61px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 3px solid var(--gold);
+            border-radius: 40px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .profile-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 280px;
+            border: 4px solid transparent;
+            border-top-color: var(--gold);
+            border-right-color: var(--gold);
+            border-radius: 50%;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .profile-image {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid var(--gold);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5),
+                        inset 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, var(--maroon), var(--dark-maroon));
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-status {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--dark-maroon);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .profile-tagline {
+            font-size: 1.3rem;
+            color: var(--cream);
+            margin-bottom: 30px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+            color: var(--light-gold);
+            background: rgba(255, 215, 0, 0.1);
+            padding: 12px 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .detail-item:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--gold);
+            transform: translateX(10px);
+        }
+
+        .detail-icon {
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+                padding: 30px;
+                gap: 30px;
+            }
+
+            .profile-name {
+                font-size: 2rem;
+            }
+
+            .profile-tagline {
+                font-size: 1rem;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .profile-ring {
+                width: 240px;
+                height: 240px;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: slideDown 1s ease-out;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .university-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            color: var(--dark-maroon);
+            padding: 10px 28px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+            border: 2px solid var(--dark-maroon);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6); }
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--light-gold);
+            font-weight: 600;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        /* Info Cards */
+        .info-section {
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .info-section::before {
+            content: 'ABOUT';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--gold);
+            background: var(--dark-maroon);
+            padding: 8px 30px;
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            letter-spacing: 3px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease-out 0.3s both;
+            padding-top: 40px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            border-radius: 20px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover::after {
+            opacity: 0.3;
+            filter: blur(15px);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+
+        .card-corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold);
+        }
+
+        .card-corner.top-left {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .card-corner.bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--cream);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Skills section */
+        .skills-section {
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease-out 0.6s both;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+            z-index: -1;
+        }
+
+        .skills-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--dark-maroon), var(--maroon));
+            padding: 15px 40px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+
+        .skills-section h2::before,
+        .skills-section h2::after {
+            content: '◆';
+            position: absolute;
+            color: var(--gold);
+            font-size: 0.6em;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .skills-section h2::before {
+            left: 15px;
+        }
+
+        .skills-section h2::after {
+            right: 15px;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            border: 2px solid var(--gold);
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: skillFadeIn 0.5s ease-out both;
+        }
+
+        .skill-tag:nth-child(1) { animation-delay: 0.1s; }
+        .skill-tag:nth-child(2) { animation-delay: 0.15s; }
+        .skill-tag:nth-child(3) { animation-delay: 0.2s; }
+        .skill-tag:nth-child(4) { animation-delay: 0.25s; }
+        .skill-tag:nth-child(5) { animation-delay: 0.3s; }
+        .skill-tag:nth-child(6) { animation-delay: 0.35s; }
+        .skill-tag:nth-child(7) { animation-delay: 0.4s; }
+        .skill-tag:nth-child(8) { animation-delay: 0.45s; }
+        .skill-tag:nth-child(9) { animation-delay: 0.5s; }
+
+        @keyframes skillFadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.8); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .skill-tag:hover::before {
+            width: 200%;
+            height: 200%;
+        }
+
+        .skill-tag:hover {
+            background: var(--gold);
+            color: var(--dark-maroon);
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
+            border-color: var(--light-gold);
+        }
+
+        /* Dual Games Section - New Section for Snake and Fireworks */
+        .dual-game-section {
+            margin-bottom: 70px;
+            animation: fadeIn 1s ease-out 0.9s both;
+            position: relative;
+        }
+
+        .dual-game-section::before {
+            content: '🎮 GAMES';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--gold);
+            background: var(--dark-maroon);
+            padding: 8px 30px;
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            letter-spacing: 3px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .dual-games-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            padding-top: 40px;
+        }
+
+        .game-panel {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 25px;
+            flex: 1;
+            min-width: 450px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .game-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .game-panel:hover::before {
+            left: 100%;
+        }
+
+        .game-panel h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        /* Snake Game Styling (Adapted to your theme) */
+        .snake-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        #snakeCanvas {
+            background: linear-gradient(135deg, var(--dark-maroon), #3A0000);
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .snake-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #snakeStartBtn {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+            color: var(--dark-maroon);
+            border: 3px solid var(--gold);
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        #snakeStartBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* FIXED: Mobile Controls - All interaction states completely disabled */
+        .mobile-controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            max-width: 240px;
+            margin: 15px auto;
+        }
+
+        .mobile-controls .control-btn {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-size: 1.2rem;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            pointer-events: auto;
+        }
+
+        /* Completely disable all hover, active, and focus states to prevent highlighting */
+        .mobile-controls .control-btn:hover,
+        .mobile-controls .control-btn:active,
+        .mobile-controls .control-btn:focus {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--gold);
+            transform: none;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .mobile-controls .control-btn.center {
+            background: rgba(255, 215, 0, 0.2);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .snake-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            gap: 15px;
+        }
+
+        .snake-stat {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            min-width: 120px;
+        }
+
+        .snake-stat-label {
+            color: var(--gold);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .snake-stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--light-gold);
+        }
+
+        #snakeGameOverScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(139, 0, 0, 0.85);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+        #snakeGameOverScreen.show {
+            display: flex;
+        }
+
+        #snakeGameOverScreen h2 {
+            color: var(--gold);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        #snakeGameOverScreen p {
+            color: var(--cream);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .snake-restart-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--light-gold) 100%);
+            color: var(--dark-maroon);
+            border: 2px solid var(--gold);
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .snake-restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Fireworks Styling (Adapted to your theme) */
+        .fireworks-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        #fireworksCanvas {
+            background: #000;
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .fireworks-info {
+            margin-top: 15px;
+            color: var(--cream);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .keyboard-controls {
+            margin-top: 15px;
+            color: var(--light-gold);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .dual-games-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-panel {
+                min-width: 100%;
+                max-width: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1rem; letter-spacing: 2px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .game-panel { padding: 20px; }
+            .game-panel h3 { font-size: 1.5rem; }
+            #snakeCanvas, #fireworksCanvas { width: 100%; height: auto; }
+            .mobile-controls { max-width: 200px; }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 2px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: var(--cream);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .made-with {
+            margin-top: 25px;
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .made-with span {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Decorative Dividers */
+        .section-divider {
+            width: 100%;
+            height: 60px;
+            position: relative;
+            margin: 50px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .section-divider::after {
+            content: '◆';
+            background: var(--dark-maroon);
+            color: var(--gold);
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            z-index: 1;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            animation: rotateDiamond 10s linear infinite;
+        }
+
+        @keyframes rotateDiamond {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background particles -->
+    <div class="bg-particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Profile Hero Section -->
+        <section class="profile-hero">
+            <div class="profile-container">
+                <div class="profile-image-wrapper">
+                    <div class="profile-ring"></div>
+                    <div class="profile-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238B0000;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23FFD700;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='100' r='100' fill='url(%23grad)'/%3E%3Ctext x='100' y='120' font-family='Arial' font-size='80' fill='white' text-anchor='middle' font-weight='bold'%3E?%3C/text%3E%3C/svg%3E" alt="Profile Picture">
+                    </div>
+                    <div class="profile-status">
+                        <span class="status-dot"></span>
+                        <span>Available for Projects</span>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-name">Tracer S. Cadapan</h2>
+                
+                    <p class="profile-tagline">"Strong always be strong"</p>
+                    <div class="profile-details">
+                        <div class="detail-item">
+                            <span class="detail-icon">🎓</span>
+                            <span>2nd Year IT Student</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">🏛️</span>
+                            <span>Perpetual Molino</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">📍</span>
+                            <span>Molino, Cavite</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <header>
+            <div class="university-badge">🎓 University of Perpetual Help System DALTA - Molino Campus</div>
+            <h1>IT PORTFOLIO</h1>
+            <p class="subtitle">2nd Year • IT Student</p>
+        </header>
+
+        <div class="info-section">
+            <div class="info-grid">
+            <div class="card">
+                <div class="card-corner top-left"></div>
+                <div class="card-corner bottom-right"></div>
+                <div class="card-icon">💻</div>
+                <h3>Information Technology</h3>
+                <p>Pursuing a Bachelor's degree in Information Technology, specializing in software development, system analysis, and emerging technologies.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-corner top-left"></div>
+                <div class="card-corner bottom-right"></div>
+                <div class="card-icon">🚀</div>
+                <h3>Academic Journey</h3>
+                <p>Currently in my second year, building a strong foundation in programming, database management, networking, and web development.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-corner top-left"></div>
+                <div class="card-corner bottom-right"></div>
+                <div class="card-icon">🎯</div>
+                <h3>Future Goals</h3>
+                <p>Aspiring to become a full-stack developer and contribute to innovative tech solutions that make a positive impact on society.</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="skills-section">
+            <div class="section-header">
+                <h2>TECHNICAL SKILLS</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-tag">HTML & CSS</div>
+                <div class="skill-tag">JavaScript</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">Java</div>
+                <div class="skill-tag">SQL</div>
+                <div class="skill-tag">Git & GitHub</div>
+                <div class="skill-tag">Web Development</div>
+                <div class="skill-tag">Problem Solving</div>
+                <div class="skill-tag">Data Structures</div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- NEW: Dual Games Section with Snake and Fireworks -->
+        <div class="dual-game-section">
+            <div class="dual-games-container">
+                <!-- Snake Game Panel -->
+                <div class="game-panel">
+                    <h3>🐍 SNAKE GAME</h3>
+                    <div class="snake-container">
+                        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+                        <div id="snakeGameOverScreen">
+                            <h2>GAME OVER!</h2>
+                            <p>Final Score: <span id="snakeFinalScore">0</span></p>
+                            <button class="snake-restart-btn" id="snakeGameOverRestart">PLAY AGAIN</button>
+                        </div>
+                    </div>
+                    
+                    <div class="snake-controls">
+                        <button id="snakeStartBtn">START GAME</button>
+                        
+                        <!-- Mobile Controls - Changed to WASD layout -->
+                        <div class="mobile-controls">
+                            <button class="control-btn" id="btnW">W</button>
+                            <div class="control-btn center">🐍</div>
+                            <div class="control-btn"></div>
+                            <button class="control-btn" id="btnA">A</button>
+                            <button class="control-btn" id="btnS">S</button>
+                            <button class="control-btn" id="btnD">D</button>
+                        </div>
+                        
+                        <!-- Game Stats -->
+                        <div class="snake-stats">
+                            <div class="snake-stat">
+                                <div class="snake-stat-label">SCORE</div>
+                                <div class="snake-stat-value" id="snakeScore">0</div>
+                            </div>
+                            <div class="snake-stat">
+                                <div class="snake-stat-label">HIGH SCORE</div>
+                                <div class="snake-stat-value" id="snakeHighScore">0</div>
+                            </div>
+                        </div>
+                        
+                        <div class="keyboard-controls">
+                            <p><strong>Controls:</strong> WASD Keys</p>
+                            <p><strong>Mobile:</strong> Use buttons above</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fireworks Panel -->
+                <div class="game-panel">
+                    <h3>🎆 FIREWORKS DISPLAY</h3>
+                    <div class="fireworks-container">
+                        <canvas id="fireworksCanvas" width="400" height="400"></canvas>
+                        <div class="fireworks-info">
+                            <p>Automatic fireworks display</p>
+                            <p>Sit back and enjoy the show!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <p class="footer-text">© 2026 John Doe | IT Student Portfolio</p>
+                <p class="footer-text">University of Perpetual Help System DALTA - Molino Campus</p>
+                <p class="made-with">Made with <span>❤</span> and dedication to technology</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Create background particles and code snippets
+        const particlesContainer = document.getElementById('particles');
+        const codeSnippets = [
+            'const init = () => {...}',
+            'while(true) { learn(); }',
+            'function solve() { }',
+            'if (dream) { achieve(); }',
+            'let success = true;',
+            'class Developer { }',
+            'import { skills } from "IT";',
+            'console.log("Hello World");',
+            'async function build() { }',
+            'return innovation;'
+        ];
+
+        // Particles
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Code snippets
+        for (let i = 0; i < 8; i++) {
+            const snippet = document.createElement('div');
+            snippet.className = 'code-snippet';
+            snippet.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+            snippet.style.left = Math.random() * 100 + '%';
+            snippet.style.animationDelay = Math.random() * 25 + 's';
+            snippet.style.animationDuration = (20 + Math.random() * 15) + 's';
+            particlesContainer.appendChild(snippet);
+        }
+
+        // ===== SNAKE GAME =====
+        const snakeCanvas = document.getElementById('snakeCanvas');
+        const snakeCtx = snakeCanvas.getContext('2d');
+        const snakeScoreElement = document.getElementById('snakeScore');
+        const snakeFinalScoreElement = document.getElementById('snakeFinalScore');
+        const snakeHighScoreElement = document.getElementById('snakeHighScore');
+        const snakeGameOverScreen = document.getElementById('snakeGameOverScreen');
+        const snakeStartBtn = document.getElementById('snakeStartBtn');
+        const snakeGameOverRestartBtn = document.getElementById('snakeGameOverRestart');
+
+        const TILE_SIZE = 20;
+        const GRID_WIDTH = 20;
+        const GRID_HEIGHT = 20;
+        const GAME_SPEED = 120;
+
+        let snake = [];
+        let food = {};
+        let snakeDirection = 'right';
+        let snakeNextDirection = 'right';
+        let snakeRunning = false;
+        let snakeGameOver = false;
+        let snakeScore = 0;
+        let snakeHighScore = localStorage.getItem('snakeHighScore') || 0;
+        let snakeGameLoop = null;
+
+        snakeHighScoreElement.textContent = snakeHighScore;
+
+        function snakeInit() {
+            snakeCanvas.width = GRID_WIDTH * TILE_SIZE;
+            snakeCanvas.height = GRID_HEIGHT * TILE_SIZE;
+            snakeSetupControls();
+        }
+
+        function snakeSetupControls() {
+            // Button event listeners
+            snakeStartBtn.addEventListener('click', snakeStartGame);
+            snakeGameOverRestartBtn.addEventListener('click', snakeStartGame);
+            
+            // Mobile control buttons
+            const btnW = document.getElementById('btnW');
+            const btnA = document.getElementById('btnA');
+            const btnS = document.getElementById('btnS');
+            const btnD = document.getElementById('btnD');
+
+            // Mobile button controls
+            const mobileControl = (direction) => {
+                if (!snakeRunning) return;
+                switch(direction) {
+                    case 'up': if (snakeDirection !== 'down') snakeNextDirection = 'up'; break;
+                    case 'left': if (snakeDirection !== 'right') snakeNextDirection = 'left'; break;
+                    case 'down': if (snakeDirection !== 'up') snakeNextDirection = 'down'; break;
+                    case 'right': if (snakeDirection !== 'left') snakeNextDirection = 'right'; break;
+                }
+            };
+
+            // Simple event listeners - click/tap only
+            btnW.addEventListener('click', () => mobileControl('up'));
+            btnA.addEventListener('click', () => mobileControl('left'));
+            btnS.addEventListener('click', () => mobileControl('down'));
+            btnD.addEventListener('click', () => mobileControl('right'));
+
+            // Touch events with preventDefault
+            btnW.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                mobileControl('up');
+            });
+
+            btnA.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                mobileControl('left');
+            });
+
+            btnS.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                mobileControl('down');
+            });
+
+            btnD.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                mobileControl('right');
+            });
+        }
+
+        function snakeStartGame() {
+            snakeStartBtn.textContent = 'RESTART';
+            snake = [
+                { x: 5, y: 5 },
+                { x: 4, y: 5 },
+                { x: 3, y: 5 }
+            ];
+            
+            snakeDirection = 'right';
+            snakeNextDirection = 'right';
+            snakeScore = 0;
+            snakeGameOver = false;
+            snakeRunning = true;
+            
+            snakeUpdateScore();
+            snakeGameOverScreen.classList.remove('show');
+            snakeSpawnFood();
+            
+            if (snakeGameLoop) clearInterval(snakeGameLoop);
+            snakeGameLoop = setInterval(snakeUpdate, GAME_SPEED);
+        }
+
+        function snakeSpawnFood() {
+            let validPosition = false;
+            while (!validPosition) {
+                food = {
+                    x: Math.floor(Math.random() * GRID_WIDTH),
+                    y: Math.floor(Math.random() * GRID_HEIGHT)
+                };
+                validPosition = !snake.some(segment => 
+                    segment.x === food.x && segment.y === food.y
+                );
+            }
+        }
+
+        function snakeUpdate() {
+            if (!snakeRunning) return;
+
+            snakeDirection = snakeNextDirection;
+            const head = { ...snake[0] };
+
+            switch (snakeDirection) {
+                case 'up': head.y--; break;
+                case 'down': head.y++; break;
+                case 'left': head.x--; break;
+                case 'right': head.x++; break;
+            }
+
+            // Check wall collision
+            if (head.x < 0 || head.x >= GRID_WIDTH || 
+                head.y < 0 || head.y >= GRID_HEIGHT) {
+                snakeEndGame();
+                return;
+            }
+
+            // Check self collision
+            if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                snakeEndGame();
+                return;
+            }
+
+            snake.unshift(head);
+
+            // Check if food is eaten
+            if (head.x === food.x && head.y === food.y) {
+                snakeScore += 10;
+                snakeUpdateScore();
+                snakeSpawnFood();
+            } else {
+                snake.pop();
+            }
+
+            snakeDraw();
+        }
+
+        function snakeDraw() {
+            // Clear canvas with theme color
+            snakeCtx.fillStyle = '#5A0000';
+            snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+            
+            // Draw grid
+            snakeCtx.strokeStyle = 'rgba(255, 215, 0, 0.1)';
+            snakeCtx.lineWidth = 1;
+            for (let x = 0; x <= GRID_WIDTH; x++) {
+                snakeCtx.beginPath();
+                snakeCtx.moveTo(x * TILE_SIZE, 0);
+                snakeCtx.lineTo(x * TILE_SIZE, snakeCanvas.height);
+                snakeCtx.stroke();
+            }
+            for (let y = 0; y <= GRID_HEIGHT; y++) {
+                snakeCtx.beginPath();
+                snakeCtx.moveTo(0, y * TILE_SIZE);
+                snakeCtx.lineTo(snakeCanvas.width, y * TILE_SIZE);
+                snakeCtx.stroke();
+            }
+
+            // Draw food (gold coin style)
+            snakeCtx.save();
+            snakeCtx.shadowColor = '#FFD700';
+            snakeCtx.shadowBlur = 15;
+            snakeCtx.fillStyle = '#FFD700';
+            snakeCtx.beginPath();
+            snakeCtx.arc(
+                food.x * TILE_SIZE + TILE_SIZE/2,
+                food.y * TILE_SIZE + TILE_SIZE/2,
+                TILE_SIZE/2,
+                0,
+                Math.PI * 2
+            );
+            snakeCtx.fill();
+            snakeCtx.restore();
+
+            // Draw snake
+            snake.forEach((segment, index) => {
+                if (index === 0) {
+                    // Head (darker gold)
+                    snakeCtx.fillStyle = '#FFED4E';
+                } else {
+                    // Body (gold)
+                    snakeCtx.fillStyle = '#FFD700';
+                }
+                
+                snakeCtx.fillRect(
+                    segment.x * TILE_SIZE + 1,
+                    segment.y * TILE_SIZE + 1,
+                    TILE_SIZE - 2,
+                    TILE_SIZE - 2
+                );
+                
+                // Add inner highlight
+                snakeCtx.fillStyle = index === 0 ? '#FFF8DC' : '#FFED4E';
+                snakeCtx.fillRect(
+                    segment.x * TILE_SIZE + 3,
+                    segment.y * TILE_SIZE + 3,
+                    TILE_SIZE - 6,
+                    TILE_SIZE - 6
+                );
+            });
+        }
+
+        function snakeEndGame() {
+            snakeRunning = false;
+            snakeGameOver = true;
+            clearInterval(snakeGameLoop);
+            snakeFinalScoreElement.textContent = snakeScore;
+            snakeGameOverScreen.classList.add('show');
+            
+            // Update high score
+            if (snakeScore > snakeHighScore) {
+                snakeHighScore = snakeScore;
+                snakeHighScoreElement.textContent = snakeHighScore;
+                localStorage.setItem('snakeHighScore', snakeHighScore);
+            }
+        }
+
+        function snakeUpdateScore() {
+            snakeScoreElement.textContent = snakeScore;
+        }
+
+        // Keyboard controls for snake - WASD
+        document.addEventListener('keydown', (e) => {
+            if (snakeGameOver && e.code === 'Space') {
+                snakeStartGame();
+                return;
+            }
+
+            if (!snakeRunning) return;
+
+            switch (e.key.toLowerCase()) {
+                case 'w':
+                    if (snakeDirection !== 'down') snakeNextDirection = 'up';
+                    e.preventDefault();
+                    break;
+                case 's':
+                    if (snakeDirection !== 'up') snakeNextDirection = 'down';
+                    e.preventDefault();
+                    break;
+                case 'a':
+                    if (snakeDirection !== 'right') snakeNextDirection = 'left';
+                    e.preventDefault();
+                    break;
+                case 'd':
+                    if (snakeDirection !== 'left') snakeNextDirection = 'right';
+                    e.preventDefault();
+                    break;
+            }
+        });
+
+        // Initialize snake game
+        snakeInit();
+
+        // ===== FIREWORKS DISPLAY =====
+        const fireworksCanvas = document.getElementById('fireworksCanvas');
+        const fireworksCtx = fireworksCanvas.getContext('2d');
+        
+        fireworksCanvas.width = 400;
+        fireworksCanvas.height = 400;
+        
+        class FireworkParticle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8,
+                    y: (Math.random() - 0.5) * 8
+                };
+                this.alpha = 1;
+                this.decay = Math.random() * 0.015 + 0.01;
+                this.gravity = 0.05;
+                this.size = Math.random() * 3 + 1;
+            }
+            
+            update() {
+                this.velocity.y += this.gravity;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= this.decay;
+            }
+            
+            draw() {
+                fireworksCtx.save();
+                fireworksCtx.globalAlpha = this.alpha;
+                fireworksCtx.fillStyle = this.color;
+                fireworksCtx.beginPath();
+                fireworksCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                fireworksCtx.fill();
+                fireworksCtx.restore();
+            }
+        }
+        
+        class Firework {
+            constructor() {
+                this.x = Math.random() * fireworksCanvas.width;
+                this.y = fireworksCanvas.height;
+                this.targetY = Math.random() * fireworksCanvas.height * 0.5 + 50;
+                this.velocity = (this.y - this.targetY) / 60;
+                this.particles = [];
+                this.exploded = false;
+                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                this.trailParticles = [];
+            }
+            
+            update() {
+                if (!this.exploded) {
+                    this.y -= this.velocity;
+                    
+                    // Add trail
+                    if (Math.random() < 0.3) {
+                        this.trailParticles.push({
+                            x: this.x,
+                            y: this.y,
+                            alpha: 0.5,
+                            size: 2
+                        });
+                    }
+                    
+                    if (this.y <= this.targetY) {
+                        this.explode();
+                    }
+                } else {
+                    this.particles.forEach((p, i) => {
+                        p.update();
+                        if (p.alpha <= 0) {
+                            this.particles.splice(i, 1);
+                        }
+                    });
+                }
+                
+                // Update trail
+                this.trailParticles.forEach((t, i) => {
+                    t.alpha -= 0.02;
+                    if (t.alpha <= 0) {
+                        this.trailParticles.splice(i, 1);
+                    }
+                });
+            }
+            
+            explode() {
+                this.exploded = true;
+                const particleCount = Math.random() * 50 + 100;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    this.particles.push(new FireworkParticle(this.x, this.y, this.color));
+                }
+            }
+            
+            draw() {
+                if (!this.exploded) {
+                    // Draw trail
+                    this.trailParticles.forEach(t => {
+                        fireworksCtx.save();
+                        fireworksCtx.globalAlpha = t.alpha;
+                        fireworksCtx.fillStyle = this.color;
+                        fireworksCtx.beginPath();
+                        fireworksCtx.arc(t.x, t.y, t.size, 0, Math.PI * 2);
+                        fireworksCtx.fill();
+                        fireworksCtx.restore();
+                    });
+                    
+                    // Draw rocket
+                    fireworksCtx.fillStyle = this.color;
+                    fireworksCtx.beginPath();
+                    fireworksCtx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    fireworksCtx.fill();
+                } else {
+                    this.particles.forEach(p => p.draw());
+                }
+            }
+            
+            isDone() {
+                return this.exploded && this.particles.length === 0;
+            }
+        }
+        
+        const fireworks = [];
+        let lastFireworkTime = 0;
+        
+        function fireworksAnimate(currentTime) {
+            fireworksCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            fireworksCtx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+            
+            // Launch new fireworks
+            if (currentTime - lastFireworkTime > Math.random() * 500 + 500) {
+                fireworks.push(new Firework());
+                lastFireworkTime = currentTime;
+            }
+            
+            // Update and draw fireworks
+            fireworks.forEach((fw, i) => {
+                fw.update();
+                fw.draw();
+                
+                if (fw.isDone()) {
+                    fireworks.splice(i, 1);
+                }
+            });
+            
+            requestAnimationFrame(fireworksAnimate);
+        }
+        
+        // Start fireworks automatically
+        fireworksAnimate(0);
+    </script>
+</body>
+</html>
